@@ -32,5 +32,17 @@ dependencies {
 }
 
 tasks.named('test') {
+	useJUnit()
 	useJUnitPlatform()
+
+	maxHeapSize = '1G'
+}
+reporting.baseDir = "test-logs"
+testResultsDirName = "$buildDir/test-logs"
+
+tasks.register('showDirs') {
+	doLast {
+		logger.quiet(rootDir.toPath().relativize(project.reportsDir.toPath()).toString())
+		logger.quiet(rootDir.toPath().relativize(project.testResultsDir.toPath()).toString())
+	}
 }
